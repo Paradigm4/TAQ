@@ -1,4 +1,0 @@
-#!/bin/bash
-
-x=$(echo $1 | sed -e "s/'/\\\\'/g")
-iquery -aq "show('$x', 'afl')"
