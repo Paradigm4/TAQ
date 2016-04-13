@@ -3,17 +3,20 @@
 # SciDB Examples using NYSE TAQ daily trades data
 #
 NARGS="$#"
-if [ $NARGS -lt 2 ]; then
-  echo "Usage: ./trades_load     path-to-trades-data    num-records"
-  echo "Using defaults"
-  FILEPATH="/tmp/EQY_US_ALL_TRADE_20131218.zip"
+FILEPATH=$1 
+if [ $NARGS -lt 1 ]; then
+  echo "Usage: ./trades_load     path-to-trades-data    num-records(optional)"
+  echo "Exiting"
+  exit
+elif [ $NARGS -eq 1 ] ; then
+  echo "Loading entire file"
   NUMLINES=0 
-  echo $FILEPATH
-  echo $NUMLINES
 else
-  FILEPATH=$1
   NUMLINES=$2
+  echo "Loading first $NUMLINES records"
 fi
+echo "Trades file:"
+echo $FILEPATH
 
 /opt/scidb/15.12/bin/iquery -aq "load_library('accelerated_io_tools')" 2>/dev/null
 
